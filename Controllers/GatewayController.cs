@@ -25,23 +25,30 @@ namespace UserMicroservice.Controllers
 
         // POST: api/Gateway
         [HttpGet]
-        public async Task Post([FromBody] string value)
+        public async Task<IActionResult> Post()
         {
             var parameters = new ServiceRegistrationDTO
             {
-                Name = "Service1",
-                Address = "http://localhost:4000",
+                Service_name = "Service1",
+                Address = "http://localhost:50757",
                 Type = "type1"
 
             };
             var request = new HttpRequestMessage(HttpMethod.Post,
-                "http://localhost:4000/service-register");
-            request.Content = new StringContent(JsonSerializer.Serialize(parameters),
+                "http://localhost:5000/service-register");
+            request.Content = new StringContent(JsonSerializer.Serialize(new {service_name = "Service1", address = "http://localhost:50757", type = "type1" }),
                 Encoding.UTF8,
                 "application/json");
             var client = clientFactory.CreateClient();
 
             var response = await client.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                return StatusCode((int)response.StatusCode);
+            }
+            var another = await response.Content.ReadAsStringAsync();
+            //var content = JsonSerializer.DeserializeAsync<string>(another);
+            return Ok(another);
 
 
         }

@@ -7,7 +7,7 @@ namespace UserMicroservice.DTOs
 {
     public class ServiceRegistrationDTO
     {
-        public string Name { get; set; }
+        public string Service_name { get; set; }
         public string Address { get; set; }
         public string Type { get; set; }
     }

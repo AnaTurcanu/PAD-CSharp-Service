@@ -29,6 +29,7 @@ namespace UserMicroservice
             // Add Database
             services.AddDbContextPool<UniversityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("UniversityContext"), sqlOptions => sqlOptions.EnableRetryOnFailure(2)));
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

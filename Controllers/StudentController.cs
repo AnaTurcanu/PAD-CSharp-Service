@@ -55,6 +55,17 @@ namespace UserMicroservice.Controllers
             return Ok(new { Id = createdStudent.Entity.Id, Status = createdStudent.Entity.Status });
         }
 
+        [HttpPost("service-register")]
+
+        public IActionResult ServiceRegister()
+        {
+            var service_name = "Service 1";
+            var ip = HttpContext.Request.Host.Value;
+            var type = "type 1";
+
+            return Ok(value: new { Name = service_name, Ip = ip, Type = type});
+        }
+
         [HttpPost("init-student")]
 
         public IActionResult InitStudent([FromBody] StudentCreationDTO studentDTO)
